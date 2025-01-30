@@ -11,6 +11,7 @@ fi
 # Check if the sshd service is running
 if [[ $(systemctl is-active sshd) == "active" ]]; then
     echo "The sshd service is running."
+    sudo apt install openssh-server
 else
     echo "The sshd service is not running."
     exit 1
