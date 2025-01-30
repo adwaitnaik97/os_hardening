@@ -17,7 +17,9 @@ else
 fi
 
 # If AppArmor is enabled, check if the AppArmor profiles are enforced
-if apparmor_status | grep -q "profiles are in enforce mode"; then
+if sudo apparmor_status | grep -q "profiles are in enforce mode"; then
+    echo "$(apparmor_status)"
+    echo "Attempting to enforce these profiles."
     echo "The AppArmor profiles are enforced."
 else
     echo "The AppArmor profiles are not enforced."

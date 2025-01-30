@@ -11,7 +11,9 @@ fi
 # Check if AppArmor is installed
 if [[ $(dpkg -l | grep apparmor) ]]; then
     echo "AppArmor is installed."
+    sudo apparmor_status
 else
     echo "AppArmor is not installed."
-    exit 1
+    echo "Installing it now ....."
+    sudo apt install apparmor-profiles
 fi

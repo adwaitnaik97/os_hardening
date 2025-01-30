@@ -12,6 +12,7 @@ fi
 echo "Checking if any one of the firewall packages are installed..."
 if [[ $(dpkg-query -l | grep -E "nftablesd|ufw|iptables") ]]; then
     echo "At least one of the firewall packages is installed."
+    echo "$(ufw --help)"
 else
     echo "None of the firewall packages are installed."
     echo "Installing ufw..."

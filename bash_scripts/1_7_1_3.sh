@@ -8,14 +8,9 @@ else
     exit 1
 fi
 
-# Check AppArmor status and enable it if it is not enabled
-if [[ $(systemctl is-enabled apparmor) == "disabled" ]]; then
-    echo "AppArmor is disabled. Enabling it..."
-    sudo systemctl enable apparmor
-    sudo systemctl start apparmor
-    echo "AppArmor has been enabled."
-else
-    echo "AppArmor is already enabled."
+# Check if AppArmor is enabled
+if systemctl is-enabled apparmor | grep -q "enabled" && apparmor_status | grep -q "apparmor module is loaded"; then
+    echo "AppArmor is enabled."
     sudo apparmor_status | grep profiles
     sudo apparmor_status | grep processes
 
@@ -29,4 +24,9 @@ else
     sudo aa-enforce /etc/apparmor.d/abstractions/* || sudo aa-complain /etc/apparmor.d/abstractions/*
     echo "AppArmor processes have been set to enforce or complain mode."
 
+else
+    echo "AppArmor is not enabled."
+    sudo systemctl enable apparmor
+    sudo systemctl start apparmor
+    echo "AppArmor has been enabled."
 fi
