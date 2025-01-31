@@ -19,7 +19,9 @@ else
     echo "Updating /etc/audit/rules.d/99-finalize.rules to include -e 2..."
     
     # Create or edit the /etc/audit/rules.d/99-finalize.rules file
-    sudo bash -c 'echo "-e 2" > /etc/audit/rules.d/99-finalize.rules'
+    # Ensure the /etc/audit/rules.d/ directory exists
+    sudo mkdir -p /etc/audit/rules.d
+    sudo sh -c 'echo "-e 2" > /etc/audit/rules.d/99-finalize.rules'
     
     echo "/etc/audit/rules.d/99-finalize.rules has been updated to include -e 2."
 fi
