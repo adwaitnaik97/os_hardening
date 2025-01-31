@@ -11,6 +11,7 @@ fi
 # Ensure all the locations entries in the console are physically secured
 if [[ $(cat /etc/securetty) ]]; then
     echo "Most of all the locations entries in the console are physically secured. However, it depends on user requirements if an entry is supposed to be removed."
+    echo $(cat /etc/securetty)
 else
     echo "The locations entries in the console are not physically secured."
     exit 1
