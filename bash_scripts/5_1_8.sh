@@ -40,6 +40,7 @@ if [[ -e /etc/cron.allow ]]; then
         sudo chmod g-wx /etc/cron.allow
         sudo chown root:root /etc/cron.allow
         echo "/etc/cron.allow permissions and ownership have been updated."
+        stat /etc/cron.allow
     fi
 else
     echo "/etc/cron.allow does not exist. Creating and setting permissions and ownership..."
@@ -48,6 +49,7 @@ else
     sudo chmod g-wx /etc/cron.allow
     sudo chown root:root /etc/cron.allow
     echo "/etc/cron.allow has been created and configured."
+    stat /etc/cron.allow
 fi
 
 # Verify and set permissions and ownership for /etc/at.allow
@@ -66,6 +68,7 @@ if [[ -e /etc/at.allow ]]; then
         sudo chmod g-wx /etc/at.allow
         sudo chown root:root /etc/at.allow
         echo "/etc/at.allow permissions and ownership have been updated."
+        stat /etc/at.allow
     fi
 else
     echo "/etc/at.allow does not exist. Creating and setting permissions and ownership..."
@@ -74,4 +77,5 @@ else
     sudo chmod g-wx /etc/at.allow
     sudo chown root:root /etc/at.allow
     echo "/etc/at.allow has been created and configured."
+    stat /etc/at.allow
 fi
