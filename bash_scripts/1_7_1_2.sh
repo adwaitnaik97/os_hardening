@@ -15,10 +15,11 @@ grep "^\s*linux" /boot/grub/grub.cfg | grep -v "apparmor=1" | grep -v '/boot/mem
 grep "^\s*linux" /boot/grub/grub.cfg | grep -v "security=apparmor" | grep -v '/boot/memtest86+.bin'
 
 # Backup the original /etc/default/grub file
+echo "Creating a backup file first....."
 sudo cp /etc/default/grub /etc/default/grub.bak
 
 # Add the apparmor=1 and security=apparmor parameters to the GRUB_CMDLINE_LINUX line
-sudo sed -i 's/GRUB_CMDLINE_LINUX="/GRUB_CMDLINE_LINUX="apparmor=1 security=apparmor /' /etc/default/grub
+sudo sed -i 's/\(GRUB_CMDLINE_LINUX="[^"]*\)/\1 apparmor=1 security=apparmor/' /etc/default/grub
 
 # Update GRUB configuration
 sudo update-grub

@@ -9,7 +9,7 @@ else
 fi
 
 # Check if a cron job is scheduled to run the AIDE check
-if [[$(sudo crontab -u root -l | grep aide)]]; then
+if sudo crontab -u root -l | grep aide && grep -r aide /etc/cron.* /etc/crontab; then
     echo "A cron job is scheduled to run the AIDE check."
 else
     echo "A cron job is not scheduled to run the AIDE check."

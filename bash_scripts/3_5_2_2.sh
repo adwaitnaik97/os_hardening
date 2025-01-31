@@ -11,6 +11,7 @@ fi
 # Check ufw status
 if [[ $(systemctl is-enabled ufw) == "enabled" && $(sudo ufw status verbose) ]]; then
     echo "The ufw is enabled and active."
+    echo -e "\e[31m Enabling the Ufw will turn off the WiFi......\e[0m"
 else
     echo "The ufw is disabled and in-active."
     echo "Enabling ufw..."
