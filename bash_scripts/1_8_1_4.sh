@@ -24,4 +24,4 @@ fi
 
 # Verify the updated permissions
 echo "Verifying the updated permissions for /etc/motd..."
-stat /etc/motd
+sudo stat /etc/motd
