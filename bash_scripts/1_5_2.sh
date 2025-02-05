@@ -13,7 +13,7 @@ expected_superusers="set superusers=\"<username>\""  # Replace <username> with t
 expected_password="password_pbkdf2 <username> <encrypted-password>"  # Replace <username> and <encrypted-password> with actual values
 
 # Check if the superusers and password lines match the expected patterns
-if sudo grep -q "^set superusers" /boot/grub/grub.cfg && sudo grep -q "^password" /boot/grub/grub.cfg; then
+if sudo grep "^set superusers" /boot/grub/grub.cfg && sudo grep "^password" /boot/grub/grub.cfg; then
     actual_superusers=$(sudo grep "^set superusers" /boot/grub/grub.cfg)
     actual_password=$(sudo grep "^password" /boot/grub/grub.cfg)
     echo "Output of 'sudo grep \"^set superusers\" /boot/grub/grub.cfg':"
@@ -31,21 +31,16 @@ if sudo grep -q "^set superusers" /boot/grub/grub.cfg && sudo grep -q "^password
         exit 1
     fi
 else
-    echo "The superusers or password lines are not found in /boot/grub/grub.cfg."
+    # echo "The superusers or password lines are not found in /boot/grub/grub.cfg."
     # Prompt for the username
-    read -p "Enter the username for GRUB superuser: " username
+    # read -p "Enter the username for GRUB superuser: " username
 
     # Generate the encrypted password
     echo "Generating the encrypted password..."
-    encrypted_password=$(grub-mkpasswd-pbkdf2 | grep "PBKDF2 hash is" | awk '{print $4}')
-
-    # Check if the encrypted password was generated
-    if [[ -z "$encrypted_password" ]]; then
-        echo "Failed to generate the encrypted password."
-        exit 1
-    fi
+    grub-mkpasswd-pbkdf2
 
     # Create a custom GRUB configuration file
+    echo "Creating a custom GRUB configuration file..."
     custom_grub_file="/etc/grub.d/40_custom_user"
     sudo bash -c "cat <<EOF > $custom_grub_file
     set superusers=\"$username\"
